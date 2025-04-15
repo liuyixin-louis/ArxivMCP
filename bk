@@ -1,0 +1,45 @@
+
+# @mcp.tool()
+# async def read_arxiv_html_content(arxiv_id: float) -> str:
+#     """Fetch the raw HTML content from an arXiv paper given its ID.
+#     Args:
+#         arxiv_id: The arXiv ID of the paper to fetch
+#     """
+    
+#     # Clean and validate the arxiv_id
+#     try:
+#         arxiv_id = str(arxiv_id).strip().replace("'", "")
+#         if not arxiv_id:
+#             return "Error: Invalid arXiv ID provided"
+            
+#         url = f"https://arxiv.org/html/{arxiv_id}"
+        
+#         # Send GET request to the URL using httpx
+#         async with httpx.AsyncClient() as client:
+#             response = await client.get(url, timeout=30.0)
+#             response.raise_for_status()  # Raise exception for bad status codes
+        
+#         # Parse HTML content
+#         soup = BeautifulSoup(response.text, 'html.parser')
+        
+#         # Remove script and style elements
+#         for script in soup(["script", "style"]):
+#             script.decompose()
+                
+#         # Get text content
+#         text = soup.get_text()
+        
+#         # Clean up the text
+#         # Break into lines and remove leading/trailing space
+#         lines = (line.strip() for line in text.splitlines())
+#         # Break multi-headlines into a line each
+#         chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+#         # Drop blank lines
+#         text = ' '.join(chunk for chunk in chunks if chunk)
+        
+#         return text
+            
+#     except httpx.HTTPError as e:
+#         return f"Error fetching content: {e}"
+#     except Exception as e:
+#         return f"Unexpected error: {e}"
